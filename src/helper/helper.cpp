@@ -69,11 +69,11 @@ string num2str(const unsigned int num) {
   return unsignedint2str(num);
 }
 
-string num2str(const size_t num) {
-  char num_buffer[50];
-  sprintf(num_buffer, "%zu", num);
-  return num_buffer;
-}
+//string num2str(const size_t num) {
+//  char num_buffer[50];
+//  sprintf(num_buffer, "%zu", num);
+//  return num_buffer;
+//}
 
 // *******File IO *************
 
