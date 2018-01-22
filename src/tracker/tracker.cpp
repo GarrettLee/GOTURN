@@ -1,6 +1,7 @@
 #include "tracker.h"
 
 #include <opencv2/videostab/inpainting.hpp>
+#include <opencv2/opencv.hpp>
 
 #include "helper/helper.h"
 #include "helper/bounding_box.h"
@@ -8,6 +9,19 @@
 #include "network/regressor_train.h"
 #include "helper/high_res_timer.h"
 #include "helper/image_proc.h"
+
+double start1_, stop1_;
+
+void Tic1() {
+ start1_ = (double)cv::getTickCount();
+}
+
+double Toc1() {
+ stop1_ = (double)cv::getTickCount();
+ return (stop1_ - start1_) /((double)cv::getTickFrequency());
+}
+
+namespace goturn {
 
 Tracker::Tracker(const bool show_tracking) :
   show_tracking_(show_tracking)
@@ -52,10 +66,11 @@ void Tracker::Track(const cv::Mat& image_curr, RegressorBase* regressor,
   double edge_spacing_x, edge_spacing_y;
   CropPadImage(bbox_curr_prior_tight_, image_curr, &curr_search_region, &search_location, &edge_spacing_x, &edge_spacing_y);
 
+  Tic1();
   // Estimate the bounding box location of the target, centered and scaled relative to the cropped image.
   BoundingBox bbox_estimate;
   regressor->Regress(image_curr, curr_search_region, target_pad, &bbox_estimate);
-
+  printf("Runtime: %.3f\n", Toc1());
   // Unscale the estimation to the real image size.
   BoundingBox bbox_estimate_unscaled;
   bbox_estimate.Unscale(curr_search_region, &bbox_estimate_unscaled);
@@ -108,3 +123,4 @@ void Tracker::ShowTracking(const cv::Mat& target_pad, const cv::Mat& curr_search
   cv::waitKey(0);
 #endif
 }
+} // namespace goturn

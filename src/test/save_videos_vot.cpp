@@ -15,6 +15,7 @@
 #include "tracker/tracker_manager.h"
 
 using std::string;
+using goturn::Tracker;
 
 int main (int argc, char *argv[]) {
   if (argc < 6) {

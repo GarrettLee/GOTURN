@@ -9,6 +9,8 @@
 #include "train/example_generator.h"
 #include "network/regressor.h"
 
+namespace goturn {
+
 class Tracker
 {
 public:
@@ -45,5 +47,7 @@ private:
   // Whether to visualize the tracking results
   bool show_tracking_;
 };
+
+} // namespace goturn
 
 #endif // TRACKER_H
