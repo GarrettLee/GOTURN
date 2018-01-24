@@ -65,12 +65,11 @@ void Tracker::Track(const cv::Mat& image_curr, RegressorBase* regressor,
   BoundingBox search_location;
   double edge_spacing_x, edge_spacing_y;
   CropPadImage(bbox_curr_prior_tight_, image_curr, &curr_search_region, &search_location, &edge_spacing_x, &edge_spacing_y);
-
   Tic1();
   // Estimate the bounding box location of the target, centered and scaled relative to the cropped image.
   BoundingBox bbox_estimate;
   regressor->Regress(image_curr, curr_search_region, target_pad, &bbox_estimate);
-  printf("Runtime: %.3f\n", Toc1());
+  //printf("Runtime: %.3f\n", Toc1());
   // Unscale the estimation to the real image size.
   BoundingBox bbox_estimate_unscaled;
   bbox_estimate.Unscale(curr_search_region, &bbox_estimate_unscaled);

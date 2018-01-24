@@ -119,7 +119,6 @@ void Regressor::Regress(const cv::Mat& image_curr,
 
 void Regressor::Estimate(const cv::Mat& image, const cv::Mat& target, std::vector<float>* output) {
   assert(net_->phase() == caffe::TEST);
-  Tic();
 
   // Reshape the input blobs to be the appropriate size.
   Blob<float>* input_target = net_->input_blobs()[0];
@@ -145,18 +144,13 @@ void Regressor::Estimate(const cv::Mat& image, const cv::Mat& target, std::vecto
   Preprocess(image, &image_channels);
   Preprocess(target, &target_channels);
 
-  printf("Data feed runtime: %.3f\n", Toc());
-  Tic();
-
   // Perform a forward-pass in the network.
   net_->ForwardPrefilled();
 
-  printf("Forward runtime: %.3f\n", Toc());
 
   // Get the network output.
-  Tic();
   GetOutput(output);
-  printf("Data fetch runtime: %.3f\n", Toc());
+
 }
 
 void Regressor::ReshapeImageInputs(const size_t num_images) {
