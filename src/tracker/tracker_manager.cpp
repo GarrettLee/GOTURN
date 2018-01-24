@@ -8,7 +8,7 @@
 using std::string;
 
 TrackerManager::TrackerManager(const std::vector<Video>& videos,
-                               RegressorBase* regressor, Tracker* tracker) :
+                               RegressorBase* regressor, goturn::Tracker* tracker) :
   videos_(videos),
   regressor_(regressor),
   tracker_(tracker)

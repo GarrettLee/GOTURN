@@ -6,6 +6,8 @@
 #include "loader/video.h"
 #include "helper/high_res_timer.h"
 
+using goturn::Tracker;
+
 // Manage the iteration over all videos and tracking the objects inside.
 class TrackerManager
 {
