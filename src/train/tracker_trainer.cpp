@@ -37,7 +37,7 @@ void TrackerTrainer::MakeTrainingExamples(std::vector<cv::Mat>* images,
   targets->push_back(target);
   bboxes_gt_scaled->push_back(bbox_gt_scaled);
 
-  // Generate additional training examples through synthetic transformations.
+  // Generate additional training examples through synthetic transformations (Sliding window).
   example_generator_->MakeTrainingExamples(kGeneratedExamplesPerImage, images,
                                            targets, bboxes_gt_scaled);
 }
